@@ -58,21 +58,28 @@
                 Console.Clear();
                 Console.WriteLine("Inserisci i dati del contribuente:");
                 Console.WriteLine("=====================================");
+                Console.WriteLine();
                 Console.Write("Nome: ");
                 string nome = Console.ReadLine();
+                Console.WriteLine();
                 Console.Write("Cognome: ");
                 string cognome = Console.ReadLine();
+                Console.WriteLine();
                 Console.Write("Data di nascita (YYYY-MM-DD): ");
                 DateTime dataNascita;
                 while (!DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out dataNascita))
                 {
                     Console.WriteLine("=====================================");
+                    Console.WriteLine();
                     Console.WriteLine("Inserisci un input valido.");
                     Console.WriteLine("=====================================");
+                    Console.WriteLine();
                     Console.Write("Data di nascita (YYYY-MM-DD): ");
                 }
+                Console.WriteLine();
                 Console.Write("Codice Fiscale: ");
                 string codiceFiscale = Console.ReadLine().ToUpper();
+                Console.WriteLine();
                 Console.Write("Sesso (M/F): ");
                 char sesso;
                 while (!char.TryParse(Console.ReadLine().ToUpper(), out sesso) || (sesso != 'M' && sesso != 'F'))
@@ -82,8 +89,10 @@
                     Console.WriteLine("=====================================");
                     Console.Write("Sesso (M/F): ");
                 }
+                Console.WriteLine();
                 Console.Write("Comune di residenza: ");
                 string comuneResidenza = Console.ReadLine();
+                Console.WriteLine();
                 Console.Write("Reddito annuale: ");
                 double redditoAnnuale;
                 while (!double.TryParse(Console.ReadLine(), out redditoAnnuale) || redditoAnnuale < 0)
@@ -107,9 +116,13 @@
                 Console.WriteLine("\nCALCOLO DELL'IMPOSTA DA VERSARE:");
                 Console.WriteLine("=====================================");
                 Console.WriteLine($"Contribuente: {contribuente.Nome} {contribuente.Cognome}");
+                Console.WriteLine();
                 Console.WriteLine($"Data di nascita: {contribuente.DataNascita.ToString("dd/MM/yyyy")} || Sesso: {contribuente.Sesso}");
+                Console.WriteLine();
                 Console.WriteLine($"Residente in: {contribuente.ComuneResidenza}");
+                Console.WriteLine();
                 Console.WriteLine($"codice fiscale: {contribuente.CodiceFiscale}");
+                Console.WriteLine();
                 Console.WriteLine($"Reddito dichiarato: {contribuente.RedditoAnnuale:N2}");
 
                 if (redditoAnnuale <= 15000)
@@ -132,12 +145,14 @@
                 {
                     Console.WriteLine("ALIQUOTA: 43%");
                 }
-
+                Console.WriteLine();
                 Console.WriteLine($"IMPOSTA DA VERSARE: {imposta:N2}");
 
                 Console.WriteLine("\nScegli un'operazione:");
                 Console.WriteLine("=====================================");
+                Console.WriteLine();
                 Console.WriteLine("1) Calcola imposte");
+                Console.WriteLine();
                 Console.WriteLine("2) Esci");
 
                 int scelta;
