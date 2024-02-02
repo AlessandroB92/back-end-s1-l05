@@ -53,63 +53,108 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Inserisci i dati del contribuente:");
-            Console.WriteLine("=====================================");
-            Console.Write("Nome: ");
-            string nome = Console.ReadLine();
-            Console.Write("Cognome: ");
-            string cognome = Console.ReadLine();
-            Console.Write("Data di nascita (YYYY-MM-DD): ");
-            DateTime dataNascita = DateTime.Parse(Console.ReadLine());
-            Console.Write("Codice Fiscale: ");
-            string codiceFiscale = Console.ReadLine().ToUpper();
-            Console.Write("Sesso (M/F): ");
-            char sesso = char.Parse(Console.ReadLine().ToUpper());
-            Console.Write("Comune di residenza: ");
-            string comuneResidenza = Console.ReadLine();
-            Console.Write("Reddito annuale: ");
-            double redditoAnnuale = double.Parse(Console.ReadLine());
-            Console.WriteLine("=====================================");
-            Console.Clear();
-
-            nome = char.ToUpper(nome[0]) + nome.Substring(1).ToLower();
-            cognome = char.ToUpper(cognome[0]) + cognome.Substring(1).ToLower();
-            comuneResidenza = char.ToUpper(comuneResidenza[0]) + comuneResidenza.Substring(1).ToLower();
-
-            Contribuente contribuente = new Contribuente(nome, cognome, dataNascita, codiceFiscale, sesso, comuneResidenza, redditoAnnuale);
-
-            double imposta = contribuente.CalcolaImposta();
-
-            Console.WriteLine("\nCALCOLO DELL'IMPOSTA DA VERSARE:");
-            Console.WriteLine($"Contribuente: {contribuente.Nome} {contribuente.Cognome}");
-            Console.WriteLine($"Data di nascita: {contribuente.DataNascita.ToString("dd/MM/yyyy")} || Sesso: {contribuente.Sesso}");
-            Console.WriteLine($"Residente in: {contribuente.ComuneResidenza}");
-            Console.WriteLine($"codice fiscale: {contribuente.CodiceFiscale}");
-            Console.WriteLine($"Reddito dichiarato: {contribuente.RedditoAnnuale:N2}");
-
-            
-            if (redditoAnnuale <= 15000)
+            do
             {
-                Console.WriteLine("ALIQUOTA: 23%");
-            }
-            else if (redditoAnnuale <= 28000)
-            {
-                Console.WriteLine("ALIQUOTA: 27%");
-            }
-            else if (redditoAnnuale <= 55000)
-            {
-                Console.WriteLine("ALIQUOTA: 38%");
-            }
-            else if (redditoAnnuale <= 75000)
-            {
-                Console.WriteLine("ALIQUOTA: 41%");
-            }
-            else
-            {
-                Console.WriteLine("ALIQUOTA: 43%");
-            }
+                Console.Clear();
+                Console.WriteLine("Inserisci i dati del contribuente:");
+                Console.WriteLine("=====================================");
+                Console.Write("Nome: ");
+                string nome = Console.ReadLine();
+                Console.Write("Cognome: ");
+                string cognome = Console.ReadLine();
+                Console.Write("Data di nascita (YYYY-MM-DD): ");
+                DateTime dataNascita;
+                while (!DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out dataNascita))
+                {
+                    Console.WriteLine("=====================================");
+                    Console.WriteLine("Inserisci un input valido.");
+                    Console.WriteLine("=====================================");
+                    Console.Write("Data di nascita (YYYY-MM-DD): ");
+                }
+                Console.Write("Codice Fiscale: ");
+                string codiceFiscale = Console.ReadLine().ToUpper();
+                Console.Write("Sesso (M/F): ");
+                char sesso;
+                while (!char.TryParse(Console.ReadLine().ToUpper(), out sesso) || (sesso != 'M' && sesso != 'F'))
+                {
+                    Console.WriteLine("=====================================");
+                    Console.WriteLine("Inserisci un input valido.");
+                    Console.WriteLine("=====================================");
+                    Console.Write("Sesso (M/F): ");
+                }
+                Console.Write("Comune di residenza: ");
+                string comuneResidenza = Console.ReadLine();
+                Console.Write("Reddito annuale: ");
+                double redditoAnnuale;
+                while (!double.TryParse(Console.ReadLine(), out redditoAnnuale) || redditoAnnuale < 0)
+                {
+                    Console.WriteLine("=====================================");
+                    Console.WriteLine("Inserisci un input valido.");
+                    Console.WriteLine("=====================================");
+                    Console.Write("Reddito annuale: ");
+                }
+                Console.WriteLine("=====================================");
+                Console.Clear();
 
-            Console.WriteLine($"IMPOSTA DA VERSARE: {imposta:N2}");
+                nome = char.ToUpper(nome[0]) + nome.Substring(1).ToLower();
+                cognome = char.ToUpper(cognome[0]) + cognome.Substring(1).ToLower();
+                comuneResidenza = char.ToUpper(comuneResidenza[0]) + comuneResidenza.Substring(1).ToLower();
+
+                Contribuente contribuente = new Contribuente(nome, cognome, dataNascita, codiceFiscale, sesso, comuneResidenza, redditoAnnuale);
+
+                double imposta = contribuente.CalcolaImposta();
+
+                Console.WriteLine("\nCALCOLO DELL'IMPOSTA DA VERSARE:");
+                Console.WriteLine("=====================================");
+                Console.WriteLine($"Contribuente: {contribuente.Nome} {contribuente.Cognome}");
+                Console.WriteLine($"Data di nascita: {contribuente.DataNascita.ToString("dd/MM/yyyy")} || Sesso: {contribuente.Sesso}");
+                Console.WriteLine($"Residente in: {contribuente.ComuneResidenza}");
+                Console.WriteLine($"codice fiscale: {contribuente.CodiceFiscale}");
+                Console.WriteLine($"Reddito dichiarato: {contribuente.RedditoAnnuale:N2}");
+
+                if (redditoAnnuale <= 15000)
+                {
+                    Console.WriteLine("ALIQUOTA: 23%");
+                }
+                else if (redditoAnnuale <= 28000)
+                {
+                    Console.WriteLine("ALIQUOTA: 27%");
+                }
+                else if (redditoAnnuale <= 55000)
+                {
+                    Console.WriteLine("ALIQUOTA: 38%");
+                }
+                else if (redditoAnnuale <= 75000)
+                {
+                    Console.WriteLine("ALIQUOTA: 41%");
+                }
+                else
+                {
+                    Console.WriteLine("ALIQUOTA: 43%");
+                }
+
+                Console.WriteLine($"IMPOSTA DA VERSARE: {imposta:N2}");
+
+                Console.WriteLine("\nScegli un'operazione:");
+                Console.WriteLine("=====================================");
+                Console.WriteLine("1) Calcola imposte");
+                Console.WriteLine("2) Esci");
+
+                int scelta;
+                while (!int.TryParse(Console.ReadLine(), out scelta) || (scelta != 1 && scelta != 2))
+                {
+                    Console.WriteLine("Input non valido. Scegli 1 per Calcola imposte o 2 per Esci.");
+                }
+
+                if (scelta == 2)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Grazie per aver utilizzato il servizio!");
+                    break;
+                }
+            } while (true);
+
         }
     }
 }
+
