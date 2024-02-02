@@ -54,6 +54,7 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Inserisci i dati del contribuente:");
+            Console.WriteLine("=====================================");
             Console.Write("Nome: ");
             string nome = Console.ReadLine();
             Console.Write("Cognome: ");
@@ -61,13 +62,19 @@
             Console.Write("Data di nascita (YYYY-MM-DD): ");
             DateTime dataNascita = DateTime.Parse(Console.ReadLine());
             Console.Write("Codice Fiscale: ");
-            string codiceFiscale = Console.ReadLine();
+            string codiceFiscale = Console.ReadLine().ToUpper();
             Console.Write("Sesso (M/F): ");
-            char sesso = char.Parse(Console.ReadLine());
+            char sesso = char.Parse(Console.ReadLine().ToUpper());
             Console.Write("Comune di residenza: ");
             string comuneResidenza = Console.ReadLine();
             Console.Write("Reddito annuale: ");
             double redditoAnnuale = double.Parse(Console.ReadLine());
+            Console.WriteLine("=====================================");
+            Console.Clear();
+
+            nome = char.ToUpper(nome[0]) + nome.Substring(1).ToLower();
+            cognome = char.ToUpper(cognome[0]) + cognome.Substring(1).ToLower();
+            comuneResidenza = char.ToUpper(comuneResidenza[0]) + comuneResidenza.Substring(1).ToLower();
 
             Contribuente contribuente = new Contribuente(nome, cognome, dataNascita, codiceFiscale, sesso, comuneResidenza, redditoAnnuale);
 
@@ -76,7 +83,7 @@
             Console.WriteLine("\nCALCOLO DELL'IMPOSTA DA VERSARE:");
             Console.WriteLine($"Contribuente: {contribuente.Nome} {contribuente.Cognome}");
             Console.WriteLine($"Data di nascita: {contribuente.DataNascita.ToString("dd/MM/yyyy")} || Sesso: {contribuente.Sesso}");
-            Console.WriteLine($"residente in: {contribuente.ComuneResidenza}");
+            Console.WriteLine($"Residente in: {contribuente.ComuneResidenza}");
             Console.WriteLine($"codice fiscale: {contribuente.CodiceFiscale}");
             Console.WriteLine($"Reddito dichiarato: {contribuente.RedditoAnnuale:N2}");
 
